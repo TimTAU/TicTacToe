@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TicTacToe</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen"/>
+</head>
+
+
+<body>
+<div class="ttt">
+    <p>Zum spielen abwechselnd drücken.</p>
+    <table id="board">
+        <caption>Spieler ? ist am Zug.</caption>
+        <tr><!-- 1. Zeile -->
+            <td id="11" class="x" name="1"></td>
+            <td id="12" class="null" name="0">
+                <button>12</button>
+            </td>
+            <td id="13" class="null" name="0">
+                <button>13</button>
+            </td>
+        </tr>
+        <tr> <!-- 2. Zeile -->
+            <td id="21" class="null" name="0">
+                <button>21</button>
+            </td>
+            <td id="22" class="null" name="0">
+                <button>22</button>
+            </td>
+            <td id="23" class="null" name="0">
+                <button>23</button>
+            </td>
+        </tr>
+        <tr><!-- 3. Zeile -->
+            <td id="31" class="null" name="0">
+                <button>31</button>
+            </td>
+            <td id="32" class="o" name="1"></td>
+            <td id="33" class="null" name="0">
+                <button>33</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var move = 1;
+        var play = true;
+
+        $('#board').on('click', '.null', function() {
+            if(checkForWinner()!=-1) {
+                var $p = $('<p>Irgendwer hat gewonnen</p>');
+                $('body').append($p);
+                console.log('Hallo');
+            } else {
+                var id = $(this).attr('id');
+                if (move % 2 == 1 && move < 8) {
+                    $(this).attr('class', 'x').attr('name', '1').empty();
+                    move++;
+                    console.log('Rest 1: ' + move);
+                } else if (move % 2 == 0 && move < 8) {
+                    $(this).attr('class', 'o').attr('name', '1').empty();
+                    move++;
+                    console.log('Rest 0: ' + move);
+                } else {
+                    console.log('Peep');
+                }
+            }
+        });
+
+        function highlightCells (cells) {
+            cells.each(function (index, value) {
+                var $wert = $(value);
+                $wert.attr('class', 'highlighted');
+            });
+        }
+
+        function checkForWinner() {
+            var space1 = $("#11").attr('class');
+            var space2 = $("#12").attr('class');
+            var space3 = $("#13").attr('class');
+            var space4 = $("#21").attr('class');
+            var space5 = $("#22").attr('class');
+            var space6 = $("#23").attr('class');
+            var space7 = $("#31").attr('class');
+            var space8 = $("#32").attr('class');
+            var space9 = $("#33").attr('class');
+            // Reihen
+            if ((space1 == space2) && (space2 == space3)) {
+                //highlightCells($('.x'));
+                return space3;
+            }
+            else if ((space4 == space5) && (space5 == space6)) {
+                return space6;
+            }
+            else if ((space7 == space8) && (space8 == space9)) {
+                return space9;
+            }
+            // Spalten
+            else if ((space1 == space4) && (space4 == space7)) {
+                return space7;
+            }
+            else if ((space2 == space5) && (space5 == space8)) {
+                return space8;
+            }
+            else if ((space3 == space6) && (space6 == space9)) {
+                return space9;
+            }
+            // Diagonale
+            else if ((space1 == space5) && (space5 == space9)) {
+                return space9;
+            }
+            else if ((space3 == space5) && (space5 == space7)) {
+                return space7;
+            }
+            // Nichts
+            return -1;
+        }
+
+    });
+</script>
+</body>
+</html>
