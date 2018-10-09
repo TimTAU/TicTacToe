@@ -13,7 +13,7 @@
     <table id="board">
         <caption>Spieler ? ist am Zug.</caption>
         <tr><!-- 1. Zeile -->
-            <td id="11" class="x" name="1"></td>
+            <td id="11" class="x" class="rot" name="1"></td>
             <td id="12" class="null" name="0">
                 <button>12</button>
             </td>
@@ -52,11 +52,6 @@
         var play = true;
 
         $('#board').on('click', '.null', function() {
-            if(checkForWinner()!=-1) {
-                var $p = $('<p>Irgendwer hat gewonnen</p>');
-                $('body').append($p);
-                console.log('Hallo');
-            } else {
                 var id = $(this).attr('id');
                 if (move % 2 == 1 && move < 8) {
                     $(this).attr('class', 'x').attr('name', '1').empty();
@@ -69,6 +64,15 @@
                 } else {
                     console.log('Peep');
                 }
+
+        });
+
+        $('#board').on('click', function() {
+            if(checkForWinner()==true) {
+                var $p = $('<p>Irgendwer hat gewonnen</p>');
+                $('body').append($p);
+                console.log('Hallo');
+                $(this).off('click');
             }
         });
 
@@ -90,35 +94,35 @@
             var space8 = $("#32").attr('class');
             var space9 = $("#33").attr('class');
             // Reihen
-            if ((space1 == space2) && (space2 == space3)) {
+            if ((space1 == space2) && (space2 == space3) && (space1 != 'null')) {
                 //highlightCells($('.x'));
-                return space3;
+                return true;
             }
-            else if ((space4 == space5) && (space5 == space6)) {
-                return space6;
+            else if ((space4 == space5) && (space5 == space6) && (space4 != 'null')) {
+                return true;
             }
-            else if ((space7 == space8) && (space8 == space9)) {
-                return space9;
+            else if ((space7 == space8) && (space8 == space9) && (space7 != 'null')) {
+                return true;
             }
             // Spalten
-            else if ((space1 == space4) && (space4 == space7)) {
-                return space7;
+            else if ((space1 == space4) && (space4 == space7) && (space1 != 'null')) {
+                return true;
             }
-            else if ((space2 == space5) && (space5 == space8)) {
-                return space8;
+            else if ((space2 == space5) && (space5 == space8) && (space2 != 'null')) {
+                return true;
             }
-            else if ((space3 == space6) && (space6 == space9)) {
-                return space9;
+            else if ((space3 == space6) && (space6 == space9) && (space3 != 'null')) {
+                return true;
             }
             // Diagonale
-            else if ((space1 == space5) && (space5 == space9)) {
-                return space9;
+            else if ((space1 == space5) && (space5 == space9) && (space1 != 'null')) {
+                return true;
             }
-            else if ((space3 == space5) && (space5 == space7)) {
-                return space7;
+            else if ((space3 == space5) && (space5 == space7) && (space3 != 'null')) {
+                return true;
             }
             // Nichts
-            return -1;
+            return false;
         }
 
     });
