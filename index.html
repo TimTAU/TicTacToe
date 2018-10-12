@@ -72,13 +72,9 @@
                 if (move == 9) {
                     play = false;
                     finish();
-                    console.log('play false');
                     xgewinn = -1;
                 }
-            } else {
-                console.log('Ich werde nie erreicht1.');
             }
-
         });
 
         $('#board').on('click', function () {
@@ -88,25 +84,16 @@
                     $('#anleitung').html("");
                     $('#aufforderung').html("");
                     $('#board').addClass('game-over');
-                } else if (xgewinn == 0) {
+                } else {
                     var $p = $('<p>Spieler <strong>O</strong> hat gewonnen.</p>');
                     $('#anleitung').html("");
                     $('#aufforderung').html("");
                     $('#board').addClass('game-over');
-                } else {
-                    console.log('Ich werde nie erreicht.3');
                 }
                 $('body').append($p);
                 $(this).off('click');
             }
         });
-
-        function highlightCells(cells) {
-            cells.each(function (index, value) {
-                var $wert = $(value);
-                $wert.attr('class', 'highlighted');
-            });
-        }
 
         function checkForWinner() {
             var space1 = $("#11").attr('class');
@@ -123,21 +110,18 @@
                 $('#11').addClass('highlighted');
                 $('#12').addClass('highlighted');
                 $('#13').addClass('highlighted');
-                console.log('123');
                 return true;
             }
             else if ((space4 == space5) && (space5 == space6) && (space4 != 'null')) {
                 $('#21').addClass('highlighted');
                 $('#22').addClass('highlighted');
                 $('#23').addClass('highlighted');
-                console.log('456');
                 return true;
             }
             else if ((space7 == space8) && (space8 == space9) && (space7 != 'null')) {
                 $('#31').addClass('highlighted');
                 $('#32').addClass('highlighted');
                 $('#33').addClass('highlighted');
-                console.log('789');
                 return true;
             }
             // Spalten
@@ -145,21 +129,18 @@
                 $('#11').addClass('highlighted');
                 $('#21').addClass('highlighted');
                 $('#31').addClass('highlighted');
-                console.log('147');
                 return true;
             }
             else if ((space2 == space5) && (space5 == space8) && (space2 != 'null')) {
                 $('#12').addClass('highlighted');
                 $('#22').addClass('highlighted');
                 $('#32').addClass('highlighted');
-                console.log('258');
                 return true;
             }
             else if ((space3 == space6) && (space6 == space9) && (space3 != 'null')) {
                 $('#13').addClass('highlighted');
                 $('#23').addClass('highlighted');
                 $('#33').addClass('highlighted');
-                console.log('369');
                 return true;
             }
             // Diagonale
@@ -167,14 +148,12 @@
                 $('#11').addClass('highlighted');
                 $('#22').addClass('highlighted');
                 $('#33').addClass('highlighted');
-                console.log('159');
                 return true;
             }
             else if ((space3 == space5) && (space5 == space7) && (space3 != 'null')) {
                 $('#13').addClass('highlighted');
                 $('#22').addClass('highlighted');
                 $('#31').addClass('highlighted');
-                console.log('357');
                 return true;
             }
             // Nichts
@@ -182,17 +161,19 @@
         }
 
         function finish() {
-            if (play == false && checkForWinner() == true) {
+            if (checkForWinner() == true) {
                 $('#board').addClass('game-over');
-            } else if (play == false && checkForWinner() == false) {
+            } else {
                 var $p = $('<p>Ihr habt ein Unentscheiden erreicht. Jetzt muss keiner Weinen!</p>');
                 $('body').append($p);
                 $('#anleitung').html("");
                 $('#aufforderung').html("Das Spielbrett ist voll :(");
                 $('#board').addClass('game-over');
-            } else {
-                console.log('Ich werde nie erreicht2.');
             }
+        }
+
+        function restart() {
+            //TODO
         }
     });
 </script>
