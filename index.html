@@ -60,12 +60,12 @@
         $('#board').on('click', '.null', function () {
             var id = $(this).attr('id');
             if (move % 2 == 1 && move < 8) {
-                $(this).attr('class', 'o').attr('name', '1').empty();
+                $(this).attr('class', 'o').empty();
                 move++;
                 xgewinn = 0;
                 $('#aufforderung').html("Spieler <strong>X</strong> ist dran");
             } else if (move % 2 == 0 && move < 9) {
-                $(this).attr('class', 'x').attr('name', '1').empty();
+                $(this).attr('class', 'x').empty();
                 move++;
                 xgewinn = 1;
                 $('#aufforderung').html("Spieler <strong>O</strong> ist dran");
@@ -85,10 +85,16 @@
             if (checkForWinner() == true) {
                 if (xgewinn == 1) {
                     var $p = $('<p>Spieler <strong>X</strong> hat gewonnen.</p>');
+                    $('#anleitung').html("");
+                    $('#aufforderung').html("");
+                    $('#board').addClass('game-over');
                 } else if (xgewinn == 0) {
                     var $p = $('<p>Spieler <strong>O</strong> hat gewonnen.</p>');
-                } else if (xgewinn == -1) {
-                    var $p = $('<p>Ihr habt ein Unentscheiden erreicht. Jetzt muss keiner Weinen!</p>');
+                    $('#anleitung').html("");
+                    $('#aufforderung').html("");
+                    $('#board').addClass('game-over');
+                } else {
+                    console.log('Ich werde nie erreicht.3');
                 }
                 $('body').append($p);
                 $(this).off('click');
@@ -114,37 +120,60 @@
             var space9 = $("#33").attr('class');
             // Reihen
             if ((space1 == space2) && (space2 == space3) && (space1 != 'null')) {
-                //TODO: highlightCells($('.x'));
+                $('#11').addClass('highlighted');
+                $('#12').addClass('highlighted');
+                $('#13').addClass('highlighted');
                 console.log('123');
                 return true;
             }
             else if ((space4 == space5) && (space5 == space6) && (space4 != 'null')) {
+                $('#21').addClass('highlighted');
+                $('#22').addClass('highlighted');
+                $('#23').addClass('highlighted');
                 console.log('456');
                 return true;
             }
             else if ((space7 == space8) && (space8 == space9) && (space7 != 'null')) {
+                $('#31').addClass('highlighted');
+                $('#32').addClass('highlighted');
+                $('#33').addClass('highlighted');
                 console.log('789');
                 return true;
             }
             // Spalten
             else if ((space1 == space4) && (space4 == space7) && (space1 != 'null')) {
+                $('#11').addClass('highlighted');
+                $('#21').addClass('highlighted');
+                $('#31').addClass('highlighted');
                 console.log('147');
                 return true;
             }
             else if ((space2 == space5) && (space5 == space8) && (space2 != 'null')) {
+                $('#12').addClass('highlighted');
+                $('#22').addClass('highlighted');
+                $('#32').addClass('highlighted');
                 console.log('258');
                 return true;
             }
             else if ((space3 == space6) && (space6 == space9) && (space3 != 'null')) {
+                $('#13').addClass('highlighted');
+                $('#23').addClass('highlighted');
+                $('#33').addClass('highlighted');
                 console.log('369');
                 return true;
             }
             // Diagonale
             else if ((space1 == space5) && (space5 == space9) && (space1 != 'null')) {
+                $('#11').addClass('highlighted');
+                $('#22').addClass('highlighted');
+                $('#33').addClass('highlighted');
                 console.log('159');
                 return true;
             }
             else if ((space3 == space5) && (space5 == space7) && (space3 != 'null')) {
+                $('#13').addClass('highlighted');
+                $('#22').addClass('highlighted');
+                $('#31').addClass('highlighted');
                 console.log('357');
                 return true;
             }
@@ -154,14 +183,13 @@
 
         function finish() {
             if (play == false && checkForWinner() == true) {
-
-                //TODO: .gameover CSS, highligt?
+                $('#board').addClass('game-over');
             } else if (play == false && checkForWinner() == false) {
                 var $p = $('<p>Ihr habt ein Unentscheiden erreicht. Jetzt muss keiner Weinen!</p>');
                 $('body').append($p);
                 $('#anleitung').html("");
                 $('#aufforderung').html("Das Spielbrett ist voll :(");
-                //TODO: .gameover CSS, kein Gewinner
+                $('#board').addClass('game-over');
             } else {
                 console.log('Ich werde nie erreicht2.');
             }
