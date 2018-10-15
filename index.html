@@ -175,6 +175,7 @@
             $('body').append($button);
             $('#restart').on('click', function () {
                 $('#restart').remove();
+                $('html,body').animate({scrollTop: 0}, 'slow');
                 move = 0;
                 xgewinn = -1;
                 $('#board').html('<caption id="aufforderung">Spieler <strong>X</strong> ist dran</caption>' +
