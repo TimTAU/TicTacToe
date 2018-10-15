@@ -80,17 +80,15 @@
         $('#board').on('click', function () {
             if (checkForWinner() == true) {
                 if (xgewinn == 1) {
+                    endgame("");
                     var $p = $('<p>Spieler <strong>X</strong> hat gewonnen.</p>');
-                    $('#anleitung').html("");
-                    $('#aufforderung').html("");
-                    $('#board').addClass('game-over');
+
                 } else {
+                    endgame("");
                     var $p = $('<p>Spieler <strong>O</strong> hat gewonnen.</p>');
-                    $('#anleitung').html("");
-                    $('#aufforderung').html("");
-                    $('#board').addClass('game-over');
                 }
                 $('body').append($p);
+                restart();
                 $(this).off('click');
             }
         });
@@ -164,16 +162,22 @@
             if (checkForWinner() == true) {
                 $('#board').addClass('game-over');
             } else {
+                endgame("Das Spielbrett ist voll :(");
                 var $p = $('<p>Ihr habt ein Unentscheiden erreicht. Jetzt muss keiner Weinen!</p>');
                 $('body').append($p);
-                $('#anleitung').html("");
-                $('#aufforderung').html("Das Spielbrett ist voll :(");
-                $('#board').addClass('game-over');
+                restart();
             }
         }
 
+        function endgame(aufforderung) {
+            $('#anleitung').html("");
+            $('#aufforderung').html(aufforderung);
+            $('#board').addClass('game-over');
+        }
+
         function restart() {
-            //TODO
+            var $button = $('<button id="restart">Nochmal?</button>');
+            $('body').append($button);
         }
     });
 </script>
