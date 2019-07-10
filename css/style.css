@@ -1,0 +1,80 @@
+.ttt table {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+.ttt td {
+    border: 1px solid black;
+    height: 5em;
+    position: relative;
+    text-align: center;
+    width: 5em;
+}
+
+/* .ttt table:not(.game-over) td:hover .null {
+   background: #e4e4e4;
+   cursor: pointer;
+}*/
+
+.ttt table:not(.game-over) td.null:hover  {
+   background: #e4e4e4;
+   cursor: help;
+}
+
+.ttt td button {
+    position: absolute;
+    left: -100vw;
+}
+
+.ttt .o {
+    background: #8f8;
+    color: #8f8;
+}
+
+.ttt .x {
+    background: #f88;
+    color: #f88;
+}
+
+.ttt table .o,
+.ttt table .x {
+    z-index: -1;
+}
+
+.ttt .o::after,
+.ttt .x::after {
+    color: black;
+    display: block;
+    font-size: 5em;
+    position: absolute;
+    width: 100%;
+}
+
+.ttt .o::after {
+    content: "○";
+    top: -0.2em;
+}
+
+.ttt .x::after {
+    content: "×";
+    top: -0.125em;
+}
+
+
+.ttt .o.highlighted::after,
+.ttt .x.highlighted::after {
+    text-shadow:
+            0 0 1px #fff,
+            0 0 2px #fff,
+            0 0 3px #fff,
+            0 0 4px white,
+            0 0 5px white,
+            0 0 6px white,
+            0 0 7px white;
+    font-weight: bold;
+}
+
+.ttt .game-over {
+    border-color: red;
+    border-collapse: collapse;
+}
